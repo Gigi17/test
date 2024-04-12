@@ -1,0 +1,52 @@
+Para criar um botão que abra uma lista contendo o mercado e seus produtos e preços registrados, você pode seguir estas etapas:
+
+Crie uma variável de estado para manter a lista de produtos e preços para o mercado atual.
+Adicione um botão à interface do usuário que, quando clicado, abre um modal ou popover exibindo a lista de produtos e preços.
+Quando o botão for clicado, busque a lista de produtos e preços para o mercado atual na API e armazene-a na variável de estado.
+No modal ou popover, use a e para exibir a lista de produtos e preços.IonListIonItem
+Use o evento no componente para atualizar o mercado selecionado e buscar a lista correspondente de produtos e preços.onIonChangeIonSelect
+Aqui está um exemplo de como você pode implementar isso:
+
+jsx
+Edit
+Full Screen
+Copy code
+import React, { useState } from "react";
+import { IonButton, IonContent, IonList, IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react";
+
+const MyComponent: React.FC = () => {
+  const [marketProducts, setMarketProducts] = useState([]);
+  const [selectedMarket, setSelectedMarket] = useState(null);
+
+  const handleMarketChange = (marketId) => {
+    setSelectedMarket(marketId);
+    // Fetch the list of products and prices for the selected market from the API
+    // and store it in the marketProducts state variable
+  };
+
+  return (
+    <IonContent>
+      <IonButton onClick={() => setMarketProducts([])}>Open List</IonButton>
+      <IonList>
+        {marketProducts.map((product) => (
+          <IonItem key={product.id}>
+            <IonLabel>{product.name}</IonLabel>
+            <IonLabel>{product.price}</IonLabel>
+          </IonItem>
+        ))}
+      </IonList>
+      <IonSelect value={selectedMarket} onIonChange={(e) => handleMarketChange(e.detail.value)}>
+        {markets.map((market) => (
+          <IonSelectOption key={market.id} value={market.id}>
+            {market.name}
+          </IonSelectOption>
+        ))}
+      </IonSelect>
+    </IonContent>
+  );
+};
+
+export default MyComponent;
+Neste exemplo, é uma matriz de objetos de mercado que você buscaria na API. A função é chamada quando o usuário seleciona um mercado do componente. Essa função deve buscar a lista de produtos e preços para o mercado selecionado da API e armazená-la na variável de estado. Os componentes e são usados para exibir a lista de produtos e preços.marketshandleMarketChangeIonSelectmarketProductsIonListIonItem
+
+Nota: Este é apenas um exemplo e talvez seja necessário ajustá-lo para se adequar ao seu caso de uso específico.
